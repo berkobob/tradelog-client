@@ -36,10 +36,4 @@ class TradeProvider extends BaseProvider {
 
   String get sumRisk => NumberFormat.simpleCurrency(name: symbol)
       .format(trades.fold(0.0, (value, item) => value += item.risk));
-
-  // String get sumTrades =>
-  //     '${trades.fold(0, (value, item) => value += item.trades.length)}';
-
-  // String get sumDays =>
-  //     '${trades.fold(0, (value, item) => value += item.days ?? 0)}';
 }

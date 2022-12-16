@@ -29,8 +29,7 @@ class TradeRoute extends StatelessWidget {
             case Status.error:
               return Center(child: Text(state.message ?? 'Error'));
             case Status.ready:
-              return sizingInformation.deviceScreenType ==
-                      DeviceScreenType.mobile
+              return sizingInformation.screenSize!.width < 2200
                   ? const Text('mobile city') // Use PageView
                   : const TradeWide();
             default:

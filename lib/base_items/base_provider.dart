@@ -8,7 +8,8 @@ import 'status_enum.dart';
 typedef Json = Map<String, dynamic>;
 
 abstract class BaseProvider extends ChangeNotifier {
-  static const root = 'http://itx:8888';
+  // static const root = 'http://itx:8888';
+  static const root = 'http://192.168.0.154:8888';
   Status _status = Status.init;
 
   set status(Status newStatus) {
@@ -20,9 +21,7 @@ abstract class BaseProvider extends ChangeNotifier {
 
   Future<List> get(String what, [String? query]) async {
     final url = Uri.parse('$root/$what?$query');
-    debugPrint(url.toString());
     final response = await http.get(url);
-    await Future.delayed(const Duration(seconds: 1));
 
     if (response.statusCode == 200) return jsonDecode(response.body)[what];
 

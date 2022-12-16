@@ -23,8 +23,8 @@ class PortfolioRoute extends StatelessWidget {
             case Status.error:
               return Center(child: Text(state.message ?? 'Error'));
             case Status.ready:
-              return sizingInformation.deviceScreenType ==
-                      DeviceScreenType.mobile
+              debugPrint('${sizingInformation.screenSize!.width}');
+              return sizingInformation.screenSize!.width < 1000
                   ? const Text('mobile city') // Use PageView
                   : const PortfoliosWide();
             default:

@@ -27,10 +27,10 @@ class PositionRoute extends StatelessWidget {
             case Status.error:
               return Center(child: Text(state.message ?? 'Error'));
             case Status.ready:
-              return sizingInformation.deviceScreenType ==
-                      DeviceScreenType.mobile
+              return sizingInformation.screenSize!.width < 1000 //1625
                   ? const Text('mobile city') // Use PageView
                   : const PositionsWide();
+
             default:
               return Center(child: Text(state.message ?? 'Panic!'));
           }
