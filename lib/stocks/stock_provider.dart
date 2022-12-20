@@ -9,6 +9,7 @@ class StockProvider extends BaseProvider {
   List<Stock> stocks = [];
   String? message;
 
+  @override
   Future<void> init([String? query]) async {
     status = Status.busy;
     try {

@@ -9,8 +9,10 @@ class PortfolioProvider extends BaseProvider {
   List<Portfolio> portfolios = [];
   String? message;
 
+  @override
   Future<void> init() async {
     status = Status.busy;
+    await super.init();
     try {
       portfolios = (await get('portfolios')).map((p) => Portfolio(p)).toList();
       status = Status.ready;

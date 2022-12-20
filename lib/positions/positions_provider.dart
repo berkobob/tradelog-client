@@ -9,6 +9,7 @@ class PositionProvider extends BaseProvider {
   List<Position> positions = [];
   String? message;
 
+  @override
   Future<void> init([String? query]) async {
     status = Status.busy;
     try {

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../widgets/settings_dialog.dart';
 import 'portfolio_provider.dart';
 import 'portfolios_wide.dart';
 
@@ -14,7 +15,10 @@ class PortfolioRoute extends StatelessWidget {
     final state = context.watch<PortfolioProvider>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Portfolios')),
+      appBar: AppBar(
+        title: const Text('Portfolios'),
+        leading: const SettingsDialog(),
+      ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {
           switch (state.status) {
