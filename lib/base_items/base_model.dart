@@ -25,16 +25,19 @@ class BaseModel {
         currency = json['currency'];
 
   String get fProceeds =>
-      NumberFormat.simpleCurrency(name: name(currency)).format(proceeds);
+      NumberFormat.simpleCurrency(name: name(currency), decimalDigits: 0)
+          .format(proceeds);
 
   String get fCommission =>
       NumberFormat.simpleCurrency(name: name(currency)).format(commission);
 
   String get fCash =>
-      NumberFormat.simpleCurrency(name: name(currency)).format(cash);
+      NumberFormat.simpleCurrency(name: name(currency), decimalDigits: 0)
+          .format(cash);
 
   String get fRisk =>
-      NumberFormat.simpleCurrency(name: name(currency)).format(risk);
+      NumberFormat.simpleCurrency(name: name(currency), decimalDigits: 0)
+          .format(risk);
 
   String format(num? x) =>
       NumberFormat.simpleCurrency(name: name(currency)).format(x);

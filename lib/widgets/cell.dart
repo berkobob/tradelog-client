@@ -22,10 +22,13 @@ class Cell extends StatelessWidget {
         throw ('We have a cell with a strange alignment of $align');
     }
     return Expanded(
-        flex: flex,
-        child: Text(
-          text,
-          textAlign: align,
-        ));
+      flex: flex,
+      child: Text(
+        overflow: TextOverflow.fade,
+        softWrap: false,
+        text,
+        textAlign: align,
+      ),
+    );
   }
 }
