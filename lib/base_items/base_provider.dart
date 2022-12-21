@@ -37,7 +37,5 @@ abstract class BaseProvider extends ChangeNotifier {
     } catch (e) {
       rethrow;
     }
-
-    return [];
   }
 }
