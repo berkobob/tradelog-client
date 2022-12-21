@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/cell.dart';
+import '../widgets/header.dart';
 import 'trade_provider.dart';
 
 class TradeWide extends StatelessWidget {
@@ -10,30 +11,34 @@ class TradeWide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<TradeProvider>();
+    final bool opt = state.trades[0].asset == 'OPT';
     return Column(
       children: [
         ListTile(
           title: Row(
             mainAxisSize: MainAxisSize.max,
-            children: const [
-              Cell('DATE', align: TextAlign.center),
-              Cell('BoS', align: TextAlign.center),
-              Cell('QTY', align: TextAlign.center),
-              Cell('STOCK', align: TextAlign.center),
-              Cell('EXPIRY', align: TextAlign.center),
-              Cell('STRIKE', align: TextAlign.center),
-              Cell('PoC', align: TextAlign.center),
-              Cell('PROCEEDS'),
-              Cell('COMMISSION'),
-              Cell('CASH'),
-              Cell('RISK'),
-              Cell('ASSET', align: TextAlign.center),
-              Cell('OoC', align: TextAlign.center),
-              Cell('MULT', align: TextAlign.center),
-              Cell('NOTES', align: TextAlign.center),
-              Cell('ID', align: TextAlign.center),
-              Cell('FX', align: TextAlign.center),
-              Cell('DECRIPTION', align: TextAlign.left),
+            children: [
+              Header('DATE', align: TextAlign.center, sort: state.sortBy),
+              Header('BoS', align: TextAlign.center, sort: state.sortBy),
+              Header('QTY', align: TextAlign.center, sort: state.sortBy),
+              Header('STOCK', align: TextAlign.center, sort: state.sortBy),
+              if (opt)
+                Header('EXPIRY', align: TextAlign.center, sort: state.sortBy),
+              if (opt)
+                Header('STRIKE', align: TextAlign.center, sort: state.sortBy),
+              if (opt)
+                Header('PoC', align: TextAlign.center, sort: state.sortBy),
+              Header('PROCEEDS', sort: state.sortBy),
+              Header('COMMISSION', sort: state.sortBy),
+              Header('CASH', sort: state.sortBy),
+              Header('RISK', sort: state.sortBy),
+              Header('ASSET', align: TextAlign.center, sort: state.sortBy),
+              Header('OoC', align: TextAlign.center, sort: state.sortBy),
+              Header('MULT', align: TextAlign.center, sort: state.sortBy),
+              Header('NOTES', align: TextAlign.center, sort: state.sortBy),
+              Header('ID', align: TextAlign.center, sort: state.sortBy),
+              Header('FX', align: TextAlign.center, sort: state.sortBy),
+              Header('DECRIPTION', align: TextAlign.left, sort: state.sortBy),
             ],
           ),
         ),
@@ -51,10 +56,15 @@ class TradeWide extends StatelessWidget {
                                   Cell(trade.fQuantity,
                                       align: TextAlign.center),
                                   Cell(trade.stock, align: TextAlign.center),
-                                  Cell(trade.fExpiry, align: TextAlign.center),
-                                  Cell(trade.fStrike, align: TextAlign.center),
-                                  Cell(trade.poc ?? '',
-                                      align: TextAlign.center),
+                                  if (opt)
+                                    Cell(trade.fExpiry,
+                                        align: TextAlign.center),
+                                  if (opt)
+                                    Cell(trade.fStrike,
+                                        align: TextAlign.center),
+                                  if (opt)
+                                    Cell(trade.poc ?? '',
+                                        align: TextAlign.center),
                                   Cell(trade.fProceeds),
                                   Cell(trade.fCommission),
                                   Cell(trade.fCash),
@@ -84,9 +94,9 @@ class TradeWide extends StatelessWidget {
               const Cell('', align: TextAlign.center),
               Cell(state.sumQuantity, align: TextAlign.center),
               const Cell('', align: TextAlign.center),
-              const Cell('', align: TextAlign.center),
-              const Cell('', align: TextAlign.center),
-              const Cell('', align: TextAlign.center),
+              if (opt) const Cell('', align: TextAlign.center),
+              if (opt) const Cell('', align: TextAlign.center),
+              if (opt) const Cell('', align: TextAlign.center),
               Cell(state.sumProceeds),
               Cell(state.sumCommission),
               Cell(state.sumCash),
@@ -106,5 +116,9 @@ class TradeWide extends StatelessWidget {
   }
 }
 
-// #TODO: Consider different screens for options and stock trades
+
+// #TODO: Sort by clicking on column headers
+// #TODO: Add menu e.g. all trades
+// #TODO: Small screen views
+
 

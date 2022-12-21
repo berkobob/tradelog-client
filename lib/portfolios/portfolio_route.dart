@@ -16,7 +16,9 @@ class PortfolioRoute extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Portfolios'),
+        title: state.status == Status.error
+            ? const Text('Error getting portfolios')
+            : const Text('Portfolios'),
         leading: const SettingsDialog(),
       ),
       body: ResponsiveBuilder(

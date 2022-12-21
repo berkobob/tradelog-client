@@ -35,7 +35,7 @@ abstract class BaseProvider extends ChangeNotifier {
       throw Exception(
           'Error getting $what - ${response.statusCode}: ${response.reasonPhrase}');
     } catch (e) {
-      print(e);
+      rethrow;
     }
 
     return [];

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../base_items/base_route.dart';
 import '../positions/positions_provider.dart';
 import '../widgets/cell.dart';
+import '../widgets/header.dart';
 import 'stock_provider.dart';
 
 class StocksWide extends StatelessWidget {
@@ -17,17 +18,17 @@ class StocksWide extends StatelessWidget {
         ListTile(
           title: Row(
             mainAxisSize: MainAxisSize.max,
-            children: const [
-              Cell('STOCK', align: TextAlign.left),
-              Cell('OPEN', align: TextAlign.center),
-              Cell('CLOSED', align: TextAlign.center),
-              Cell('PROCEEDS'),
-              Cell('COMMISSION'),
-              Cell('CASH'),
-              Cell('RISK'),
-              Cell('QTY', align: TextAlign.center),
-              Cell('PROFIT'),
-              Cell('DIVIDENDS'),
+            children: [
+              Header('STOCK', align: TextAlign.left, sort: state.sortBy),
+              Header('OPEN', align: TextAlign.center, sort: state.sortBy),
+              Header('CLOSED', align: TextAlign.center, sort: state.sortBy),
+              Header('PROCEEDS', sort: state.sortBy),
+              Header('COMMISSION', sort: state.sortBy),
+              Header('CASH', sort: state.sortBy),
+              Header('RISK', sort: state.sortBy),
+              Header('QTY', align: TextAlign.center, sort: state.sortBy),
+              Header('PROFIT', sort: state.sortBy),
+              Header('DIVIDENDS', sort: state.sortBy),
             ],
           ),
         ),

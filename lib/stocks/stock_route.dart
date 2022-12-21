@@ -15,9 +15,11 @@ class StockRoute extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: state.message == ''
-            ? const Text('All Stocks')
-            : Text('Stocks for ${state.message}'),
+        title: state.status == Status.error
+            ? const Text('Error getting stocks')
+            : state.message == ''
+                ? const Text('All Stocks')
+                : Text('Stocks for ${state.message}'),
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {

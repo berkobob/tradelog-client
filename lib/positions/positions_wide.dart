@@ -1,3 +1,4 @@
+import 'package:client/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,19 +18,19 @@ class PositionsWide extends StatelessWidget {
         ListTile(
           title: Row(
             mainAxisSize: MainAxisSize.max,
-            children: const [
-              Cell('SYMBOL', align: TextAlign.left),
-              Cell('DESCRIPTION', align: TextAlign.left),
-              Cell('QTY', align: TextAlign.center),
-              Cell('PROCEEDS'),
-              Cell('COMMISSION'),
-              Cell('CASH'),
-              Cell('RISK'),
-              Cell('OPEN', align: TextAlign.center),
-              Cell('CLOSED', align: TextAlign.center),
-              Cell('NUM', align: TextAlign.center),
-              Cell('DAYS', align: TextAlign.center),
-              Cell('ASSET', align: TextAlign.center),
+            children: [
+              Header('SYMBOL', align: TextAlign.left, sort: state.sortBy),
+              Header('DESCRIPTION', align: TextAlign.left, sort: state.sortBy),
+              Header('QTY', align: TextAlign.center, sort: state.sortBy),
+              Header('PROCEEDS', sort: state.sortBy),
+              Header('COMMISSION', sort: state.sortBy),
+              Header('CASH', sort: state.sortBy),
+              Header('RISK', sort: state.sortBy),
+              Header('OPEN', align: TextAlign.center, sort: state.sortBy),
+              Header('CLOSED', align: TextAlign.center, sort: state.sortBy),
+              Header('NUM', align: TextAlign.center, sort: state.sortBy),
+              Header('DAYS', align: TextAlign.center, sort: state.sortBy),
+              Header('ASSET', align: TextAlign.center, sort: state.sortBy),
             ],
           ),
         ),

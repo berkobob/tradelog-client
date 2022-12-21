@@ -17,9 +17,11 @@ class TradeRoute extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: state.message == ''
-            ? const Text('All Trades')
-            : Text('Trades for ${state.message}'),
+        title: state.status == Status.error
+            ? const Text('Error getting trades')
+            : state.message == ''
+                ? const Text('All Trades')
+                : Text('Trades for ${state.message}'),
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {

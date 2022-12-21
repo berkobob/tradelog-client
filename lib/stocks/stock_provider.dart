@@ -8,6 +8,7 @@ import 'stock.dart';
 class StockProvider extends BaseProvider {
   List<Stock> stocks = [];
   String? message;
+  String sort = '';
 
   @override
   Future<void> init([String? query]) async {
@@ -49,4 +50,48 @@ class StockProvider extends BaseProvider {
 
   String get sumQuantity =>
       stocks.fold<num>(0, (value, item) => value += item.quantity).toString();
+
+  void sortBy(String by) {
+    switch (by) {
+      case "STOCK":
+        stocks.sort((a, b) => a.stock.compareTo(b.stock));
+        break;
+      case "OPEN":
+        stocks.sort((a, b) => a.open.length.compareTo(b.open.length));
+        break;
+      case "CLOSED":
+        stocks.sort((a, b) => a.closed.length.compareTo(b.closed.length));
+        break;
+      case "PROCEEDS":
+        stocks.sort((a, b) => a.proceeds.compareTo(b.proceeds));
+        break;
+      case "COMMISSION":
+        stocks.sort((a, b) => a.commission.compareTo(b.commission));
+        break;
+      case "CASH":
+        stocks.sort((a, b) => a.cash.compareTo(b.cash));
+        break;
+      case "RISK":
+        stocks.sort((a, b) => a.risk.compareTo(b.risk));
+        break;
+      case "QTY":
+        stocks.sort((a, b) => a.quantity.compareTo(b.quantity));
+        break;
+      case "PROFIT":
+        stocks.sort((a, b) => a.profit.compareTo(b.profit));
+        break;
+      case "DIVIDENDS":
+        stocks.sort((a, b) => a.dividends.compareTo(b.dividends));
+        break;
+    }
+
+    if (sort == by) {
+      stocks = stocks.reversed.toList();
+      sort = "";
+    } else {
+      sort = by;
+    }
+
+    notifyListeners();
+  }
 }

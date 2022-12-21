@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../base_items/base_route.dart';
 import '../widgets/cell.dart';
 import '../stocks/stock_provider.dart';
+import '../widgets/header.dart';
 import 'portfolio_provider.dart';
 
 class PortfoliosWide extends StatelessWidget {
@@ -17,15 +18,15 @@ class PortfoliosWide extends StatelessWidget {
         ListTile(
           title: Row(
             mainAxisSize: MainAxisSize.max,
-            children: const [
-              Cell('PORTFOLIO', align: TextAlign.left),
-              Cell('STOCKS'),
-              Cell('PROCEEDS'),
-              Cell('COMMISSION'),
-              Cell('CASH'),
-              Cell('RISK'),
-              Cell('PROFIT'),
-              Cell('DIVIDENDS'),
+            children: [
+              Header('PORTFOLIO', align: TextAlign.left, sort: state.sortBy),
+              Header('STOCKS', sort: state.sortBy),
+              Header('PROCEEDS', sort: state.sortBy),
+              Header('COMMISSION', sort: state.sortBy),
+              Header('CASH', sort: state.sortBy),
+              Header('RISK', sort: state.sortBy),
+              Header('PROFIT', sort: state.sortBy),
+              Header('DIVIDENDS', sort: state.sortBy),
             ],
           ),
         ),

@@ -15,9 +15,11 @@ class PositionRoute extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: state.message == ''
-            ? const Text('All Positions')
-            : Text('Positions for ${state.message}'),
+        title: state.status == Status.error
+            ? const Text('Error getting positions')
+            : state.message == ''
+                ? const Text('All Positions')
+                : Text('Positions for ${state.message}'),
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {
