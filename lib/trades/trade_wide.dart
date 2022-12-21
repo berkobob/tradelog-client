@@ -117,8 +117,8 @@ class TradeWide extends StatelessWidget {
 }
 
 
-// #TODO: Sort by clicking on column headers
 // #TODO: Add menu e.g. all trades
 // #TODO: Small screen views
+// #TODO: Save and retrieve shared preferences i.e. settings
 
 
