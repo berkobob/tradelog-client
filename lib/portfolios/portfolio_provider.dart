@@ -13,7 +13,6 @@ class PortfolioProvider extends BaseProvider {
   @override
   Future<void> init() async {
     status = Status.busy;
-    await super.init();
     try {
       portfolios = (await get('portfolios')).map((p) => Portfolio(p)).toList();
       status = Status.ready;

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'status_enum.dart';
 import '../settings.dart';
@@ -10,18 +9,14 @@ import '../settings.dart';
 typedef Json = Map<String, dynamic>;
 
 abstract class BaseProvider extends ChangeNotifier {
-  Future<void> init() async {
-    final prefs = await SharedPreferences.getInstance();
-    Settings.address = prefs.getString('address') ?? 'itx';
-    Settings.port = prefs.getInt('port') ?? 8888;
-  }
-
   Status _status = Status.init;
 
   set status(Status newStatus) {
     _status = newStatus;
     notifyListeners();
   }
+
+  void init() async {}
 
   Status get status => _status;
 

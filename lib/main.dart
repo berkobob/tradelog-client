@@ -6,6 +6,7 @@ import 'portfolios/portfolio_route.dart';
 import 'positions/positions_provider.dart';
 import 'stocks/stock_provider.dart';
 import 'trades/trade_provider.dart';
+import 'settings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,18 +19,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (BuildContext context) => PortfolioProvider()..init(),
+        Provider<Settings>(
+          create: (context) => Settings()..init(),
+          lazy: false,
         ),
+        ChangeNotifierProvider<PortfolioProvider>(
+            create: (BuildContext context) => PortfolioProvider()..init()),
         ChangeNotifierProvider(
-          create: (BuildContext context) => StockProvider(),
-        ),
+            create: (BuildContext context) => StockProvider()),
         ChangeNotifierProvider(
-          create: (BuildContext context) => PositionProvider(),
-        ),
+            create: (BuildContext context) => PositionProvider()),
         ChangeNotifierProvider(
-          create: (BuildContext context) => TradeProvider(),
-        ),
+            create: (BuildContext context) => TradeProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
