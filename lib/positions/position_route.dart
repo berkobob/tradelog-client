@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../widgets/popup_menu.dart';
 import 'positions_provider.dart';
 import 'positions_wide.dart';
 
@@ -17,9 +18,10 @@ class PositionRoute extends StatelessWidget {
       appBar: AppBar(
         title: state.status == Status.error
             ? const Text('Error getting positions')
-            : state.message == ''
+            : state.message == null
                 ? const Text('All Positions')
                 : Text('Positions for ${state.message}'),
+        actions: const <Widget>[MyPopupMenu()],
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {

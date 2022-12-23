@@ -117,7 +117,8 @@ class TradeWide extends StatelessWidget {
 }
 
 
-// #TODO: Add menu e.g. all trades
+// #TODO: Add count to footer on all screens
 // #TODO: Small screen views
+// #TODO: Look at separate stock and options counts
 
 

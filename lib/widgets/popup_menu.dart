@@ -1,44 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog/positions/position_route.dart';
+import 'package:provider/provider.dart';
 
-import '../portfolios/portfolio_route.dart';
-import '../stocks/stock_route.dart';
-import '../trades/trade_route.dart';
+import '../portfolios/portfolio_provider.dart';
+import '../stocks/stock_provider.dart';
+import '../positions/positions_provider.dart';
+import '../trades/trade_provider.dart';
+import '../base_items/base_route.dart';
 
 class MyPopupMenu extends StatelessWidget {
   const MyPopupMenu({super.key});
 
-  static final items = {
-    'Portfolios': PortfolioRoute(),
-    'Stocks': StockRoute(),
-    'Positions': PositionRoute(),
-    'Trades': TradeRoute()
-  };
-
   @override
   Widget build(BuildContext context) {
+    final items = [
+      {
+        'name': 'Portfolios',
+        'route': portfolioRoute(),
+        'provider': context.read<PortfolioProvider>(),
+      },
+      {
+        'name': 'Stocks',
+        'route': stockRoute(),
+        'provider': context.read<StockProvider>(),
+      },
+      {
+        'name': 'Positions',
+        'route': positionRoute(),
+        'provider': context.read<PositionProvider>(),
+      },
+      {
+        'name': 'Trades',
+        'route': tradeRoute(),
+        'provider': context.read<TradeProvider>(),
+      },
+    ];
+
     return PopupMenuButton(
         icon: const Icon(Icons.menu),
         color: Theme.of(context).primaryColor,
-        onSelected: print,
-        itemBuilder: (context) => items.keys
-            .map<PopupMenuItem>(
-                (item) => PopupMenuItem(value: item, child: Text(item)))
+        onSelected: (choice) {
+          choice['provider'].init();
+          Navigator.push(context, choice['route']);
+        },
+        itemBuilder: (context) => items
+            .map<PopupMenuItem>((item) => PopupMenuItem(
+                  value: item,
+                  child: Text(item['name'] as String,
+                      style: const TextStyle(color: Colors.white)),
+                ))
             .toList());
-
-    // const [
-    //       PopupMenuItem(
-    //           value: 'hi',
-    //           child: Text('hi', style: TextStyle(color: Colors.white))),
-    //       PopupMenuItem(
-    //         value: 'there',
-    //         child: Text(
-    //           'there',
-    //           style: TextStyle(
-    //             color: Colors.white,
-    //           ),
-    //         ),
-    //       ),
-    //     ]);
   }
 }

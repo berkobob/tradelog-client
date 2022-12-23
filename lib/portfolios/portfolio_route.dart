@@ -19,9 +19,9 @@ class PortfolioRoute extends StatelessWidget {
       appBar: AppBar(
         title: state.status == Status.error
             ? const Text('Error getting portfolios')
-            : const Text('Portfolios'),
+            : const Text('All Portfolios'),
         leading: const SettingsDialog(),
-        actions: <Widget>[MyPopupMenu()],
+        actions: const <Widget>[MyPopupMenu()],
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {

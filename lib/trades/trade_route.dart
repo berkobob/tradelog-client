@@ -4,6 +4,7 @@ import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
 import '../trades/trade_wide.dart';
+import '../widgets/popup_menu.dart';
 import 'trade_provider.dart';
 
 class TradeRoute extends StatelessWidget {
@@ -19,9 +20,10 @@ class TradeRoute extends StatelessWidget {
       appBar: AppBar(
         title: state.status == Status.error
             ? const Text('Error getting trades')
-            : state.message == ''
+            : state.message == null
                 ? const Text('All Trades')
                 : Text('Trades for ${state.message}'),
+        actions: const <Widget>[MyPopupMenu()],
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {

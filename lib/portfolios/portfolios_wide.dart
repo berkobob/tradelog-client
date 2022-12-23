@@ -62,7 +62,7 @@ class PortfoliosWide extends StatelessWidget {
           title: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Spacer(),
+              const Cell('', align: TextAlign.left),
               Cell(state.sumQuantity),
               Cell(state.sumProceeds),
               Cell(state.sumCommission),

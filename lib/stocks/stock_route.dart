@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../widgets/popup_menu.dart';
 import 'stock_provider.dart';
 import 'stocks_wide.dart';
 
@@ -17,13 +18,17 @@ class StockRoute extends StatelessWidget {
       appBar: AppBar(
         title: state.status == Status.error
             ? const Text('Error getting stocks')
-            : state.message == ''
+            : state.message == null
                 ? const Text('All Stocks')
                 : Text('Stocks for ${state.message}'),
+        actions: const <Widget>[MyPopupMenu()],
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {
           switch (state.status) {
+            case Status.init:
+              state.init();
+              return const Center(child: CircularProgressIndicator());
             case Status.busy:
               return const Center(child: CircularProgressIndicator());
             case Status.error:
