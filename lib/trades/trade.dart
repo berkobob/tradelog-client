@@ -1,5 +1,6 @@
-import 'package:client/base_items/base_model.dart';
 import 'package:intl/intl.dart';
+
+import '../base_items/base_model.dart';
 
 class Trade extends BaseModel {
   final DateTime date;

@@ -1,9 +1,9 @@
-import 'package:client/trades/trade_wide.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../trades/trade_wide.dart';
 import 'trade_provider.dart';
 
 class TradeRoute extends StatelessWidget {

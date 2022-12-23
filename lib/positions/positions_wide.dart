@@ -1,9 +1,9 @@
-import 'package:client/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../base_items/base_route.dart';
 import '../trades/trade_provider.dart';
+import '../widgets/header.dart';
 import '../widgets/cell.dart';
 import 'positions_provider.dart';
 

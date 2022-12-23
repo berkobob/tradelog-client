@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../widgets/popup_menu.dart';
 import '../widgets/settings_dialog.dart';
 import 'portfolio_provider.dart';
 import 'portfolios_wide.dart';
@@ -20,6 +21,7 @@ class PortfolioRoute extends StatelessWidget {
             ? const Text('Error getting portfolios')
             : const Text('Portfolios'),
         leading: const SettingsDialog(),
+        actions: <Widget>[MyPopupMenu()],
       ),
       body: ResponsiveBuilder(
         builder: ((context, sizingInformation) {

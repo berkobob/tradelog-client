@@ -1,4 +1,4 @@
-import 'package:client/base_items/base_model.dart';
+import '../base_items/base_model.dart';
 
 class Stock extends BaseModel {
   final String stock;

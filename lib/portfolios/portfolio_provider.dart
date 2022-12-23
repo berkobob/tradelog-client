@@ -1,6 +1,6 @@
-import 'package:client/base_items/base_provider.dart';
 import 'package:intl/intl.dart';
 
+import '../base_items/base_provider.dart';
 import '../base_items/currency_to_symbol.dart';
 import '../base_items/status_enum.dart';
 import 'portfolio.dart';

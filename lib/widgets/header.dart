@@ -30,7 +30,7 @@ class Header extends StatelessWidget {
       child: InkWell(
         onTap: () => sort(text),
         splashColor: Theme.of(context).primaryColor,
-        child: Text(text, textAlign: align),
+        child: Text(text, textAlign: align, maxLines: 1),
       ),
     );
   }
