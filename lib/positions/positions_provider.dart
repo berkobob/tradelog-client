@@ -6,15 +6,28 @@ import '../base_items/status_enum.dart';
 import 'position.dart';
 
 class PositionProvider extends BaseProvider {
-  List<Position> positions = [];
+  // List<Position> positions = [];
+  List<Position> allPositions = [];
   String? message;
   String sort = '';
+  bool hideClosed = false;
+  bool hideOpen = false;
+  bool hideStocks = false;
+  bool hideOptions = false;
+
+  List<Position> get positions => allPositions.where((position) {
+        if (hideClosed && position.quantity == 0) return false;
+        if (hideOpen && position.quantity != 0) return false;
+        if (hideStocks && position.asset == 'STK') return false;
+        if (hideOptions && position.asset == 'OPT') return false;
+        return true;
+      }).toList();
 
   @override
   Future<void> init([String? query]) async {
     status = Status.busy;
     try {
-      positions =
+      allPositions =
           (await get('positions', query)).map((s) => Position(s)).toList();
       status = Status.ready;
     } catch (e) {
@@ -28,6 +41,9 @@ class PositionProvider extends BaseProvider {
   String get sumQuantity => positions
       .fold<num>(0, (value, item) => value += item.quantity)
       .toString();
+
+  int get countOpen => positions.fold<int>(
+      0, (value, item) => item.closed == null ? ++value : value);
 
   String get sumProceeds => NumberFormat.simpleCurrency(name: symbol)
       .format(positions.fold(0.0, (value, item) => value += item.proceeds));
@@ -89,7 +105,7 @@ class PositionProvider extends BaseProvider {
     }
 
     if (sort == by) {
-      positions = positions.reversed.toList();
+      allPositions = allPositions.reversed.toList();
       sort = "";
     } else {
       sort = by;

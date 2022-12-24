@@ -90,7 +90,7 @@ class TradeWide extends StatelessWidget {
           title: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Cell('', align: TextAlign.center),
+              Cell('${state.trades.length}', align: TextAlign.center),
               const Cell('', align: TextAlign.center),
               Cell(state.sumQuantity, align: TextAlign.center),
               const Cell('', align: TextAlign.center),
@@ -117,8 +117,6 @@ class TradeWide extends StatelessWidget {
 }
 
 
-// #TODO: Add count to footer on all screens
 // #TODO: Small screen views
-// #TODO: Look at separate stock and options counts
 
 
