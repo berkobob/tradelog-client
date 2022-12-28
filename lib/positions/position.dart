@@ -27,4 +27,17 @@ class Position extends BaseModel {
   String get fClosed =>
       closed != null ? DateFormat('dd/MM/yy').format(closed!) : '';
   String get fQuantity => largeNum(quantity);
+
+  @override
+  Map<String, String> toMap() => {
+        'Stock': stock,
+        'Symbol': symbol,
+        'Description': description,
+        ...super.toMap(),
+        'Open': fOpen,
+        'Closed': fClosed,
+        'No. of Trades': '${trades.length}',
+        'No of Days': '$days',
+        'Asset': asset
+      };
 }

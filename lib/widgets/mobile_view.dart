@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TradeNarrow extends StatelessWidget {
-  const TradeNarrow(this.trade, {super.key});
+class MobileView extends StatelessWidget {
+  const MobileView(this.trade, {super.key});
   final Map<String, String> trade;
 
   @override

@@ -7,8 +7,8 @@ import '../widgets/cell.dart';
 import '../widgets/header.dart';
 import 'stock_provider.dart';
 
-class StocksWide extends StatelessWidget {
-  const StocksWide({super.key});
+class Stocks extends StatelessWidget {
+  const Stocks({super.key});
 
   @override
   Widget build(BuildContext context) {

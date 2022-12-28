@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
-import '../trades/trade_wide.dart';
+import 'trades.dart';
 import '../widgets/popup_menu.dart';
-import 'trade_narrow.dart';
+import '../widgets/mobile_view.dart';
 import 'trade_provider.dart';
 
 class TradeRoute extends StatelessWidget {
@@ -37,11 +37,11 @@ class TradeRoute extends StatelessWidget {
               return sizingInformation.screenSize!.width < 1300
                   ? PageView(
                       children: state.trades
-                          .map((trade) => TradeNarrow(trade.toMap()))
+                          .map((trade) => MobileView(trade.toMap()))
                           .toList()
-                        ..insert(0, TradeNarrow(state.toMap())),
+                        ..insert(0, MobileView(state.toMap())),
                     )
-                  : const TradeWide();
+                  : const Trades();
             default:
               return Center(child: Text(state.message ?? 'Panic!'));
           }

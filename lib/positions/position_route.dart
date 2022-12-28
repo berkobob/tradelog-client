@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../widgets/mobile_view.dart';
 import '../widgets/popup_filter.dart';
 import '../widgets/popup_menu.dart';
 import 'positions_provider.dart';
-import 'positions_wide.dart';
+import 'positions.dart';
 
 class PositionRoute extends StatelessWidget {
   const PositionRoute({super.key});
@@ -36,8 +37,12 @@ class PositionRoute extends StatelessWidget {
               return Center(child: Text(state.message ?? 'Error'));
             case Status.ready:
               return sizingInformation.screenSize!.width < 1000 //1625
-                  ? const Text('mobile city') // Use PageView
-                  : const PositionsWide();
+                  ? PageView(
+                      children: state.positions
+                          .map((position) => MobileView(position.toMap()))
+                          .toList()
+                        ..insert(0, MobileView(state.toMap())))
+                  : const Positions();
 
             default:
               return Center(child: Text(state.message ?? 'Panic!'));

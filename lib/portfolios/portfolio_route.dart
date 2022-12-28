@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../widgets/mobile_view.dart';
 import '../widgets/popup_menu.dart';
 import '../widgets/settings_dialog.dart';
 import 'portfolio_provider.dart';
-import 'portfolios_wide.dart';
+import 'portfolios.dart';
 
 class PortfolioRoute extends StatelessWidget {
   const PortfolioRoute({super.key});
@@ -33,8 +34,13 @@ class PortfolioRoute extends StatelessWidget {
             case Status.ready:
               debugPrint('${sizingInformation.screenSize!.width}');
               return sizingInformation.screenSize!.width < 1000
-                  ? const Text('mobile city') // Use PageView
-                  : const PortfoliosWide();
+                  ? PageView(
+                      children: state.portfolios
+                          .map((portfolio) => MobileView(portfolio.toMap()))
+                          .toList()
+                        ..insert(0, MobileView(state.toMap())),
+                    )
+                  : const Portfolios();
             default:
               return Center(child: Text(state.message ?? 'Panic!'));
           }

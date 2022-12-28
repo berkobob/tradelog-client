@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
 import '../base_items/status_enum.dart';
+import '../widgets/mobile_view.dart';
 import '../widgets/popup_menu.dart';
 import 'stock_provider.dart';
-import 'stocks_wide.dart';
+import 'stocks.dart';
 
 class StockRoute extends StatelessWidget {
   const StockRoute({super.key});
@@ -35,8 +36,13 @@ class StockRoute extends StatelessWidget {
               return Center(child: Text(state.message ?? 'Error'));
             case Status.ready:
               return sizingInformation.screenSize!.width < 1000
-                  ? const Text('mobile city') // Use PageView
-                  : const StocksWide();
+                  ? PageView(
+                      children: state.stocks
+                          .map((stock) => MobileView(stock.toMap()))
+                          .toList()
+                        ..insert(0, MobileView(state.toMap())),
+                    )
+                  : const Stocks();
             default:
               return Center(child: Text(state.message ?? 'Panic!'));
           }

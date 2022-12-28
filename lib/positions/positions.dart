@@ -7,8 +7,8 @@ import '../widgets/header.dart';
 import '../widgets/cell.dart';
 import 'positions_provider.dart';
 
-class PositionsWide extends StatelessWidget {
-  const PositionsWide({super.key});
+class Positions extends StatelessWidget {
+  const Positions({super.key});
 
   @override
   Widget build(BuildContext context) {

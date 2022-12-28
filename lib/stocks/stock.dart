@@ -17,4 +17,14 @@ class Stock extends BaseModel {
 
   String get fDividends => format(dividends);
   String get fProfit => format(profit);
+
+  @override
+  Map<String, String> toMap() => {
+        'Stock': stock,
+        ...super.toMap(),
+        'Open': '${open.length}',
+        'Closed': '${closed.length}',
+        'Profit': fProfit,
+        'Dividends': fDividends
+      };
 }

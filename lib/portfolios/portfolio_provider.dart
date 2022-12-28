@@ -46,6 +46,16 @@ class PortfolioProvider extends BaseProvider {
       .fold<num>(0, (value, item) => value += item.quantity)
       .toString();
 
+  Map<String, String> toMap() => {
+        'Stocks': sumQuantity,
+        'Proceeds': sumProceeds,
+        'Commission': sumCommission,
+        'Cash': sumCash,
+        'Risk': sumRisk,
+        'Profit': sumProfit,
+        'Dividends': sumDividends,
+      };
+
   void sortBy(String by) {
     switch (by) {
       case "PORTFOLIO":

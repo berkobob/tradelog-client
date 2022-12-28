@@ -5,8 +5,8 @@ import '../widgets/cell.dart';
 import '../widgets/header.dart';
 import 'trade_provider.dart';
 
-class TradeWide extends StatelessWidget {
-  const TradeWide({super.key});
+class Trades extends StatelessWidget {
+  const Trades({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +115,3 @@ class TradeWide extends StatelessWidget {
     );
   }
 }
-
-
-// #TODO: Small screen views
-
-

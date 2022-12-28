@@ -94,4 +94,17 @@ class StockProvider extends BaseProvider {
 
     notifyListeners();
   }
+
+  Map<String, String> toMap() => {
+        'Stocks': '${stocks.length}',
+        'Open positions': sumOpen,
+        'Closed positions': sumClosed,
+        'Proceeds': sumProceeds,
+        'Commission': sumCommission,
+        'Cash': sumCash,
+        'Risk': sumRisk,
+        'Quantity': sumQuantity,
+        'Profit': sumProfit,
+        'Dividends': sumDividends,
+      };
 }

@@ -60,8 +60,8 @@ class PositionProvider extends BaseProvider {
   String get sumTrades =>
       '${positions.fold(0, (value, item) => value += item.trades.length)}';
 
-  String get sumDays =>
-      '${positions.fold(0, (value, item) => value += item.days ?? 0)}';
+  String get sumDays => NumberFormat('#,###,###')
+      .format(positions.fold(0, (value, item) => value += item.days ?? 0));
 
   void sortBy(String by) {
     switch (by) {
@@ -113,4 +113,17 @@ class PositionProvider extends BaseProvider {
 
     notifyListeners();
   }
+
+  Map<String, String> toMap() => {
+        'No. Positions': '${positions.length}',
+        'Quantity': sumQuantity,
+        'Proceeds': sumProceeds,
+        'Commission': sumCommission,
+        'Cash': sumCash,
+        'Risk': sumRisk,
+        'No. Open': '$countOpen',
+        'No. Closed': '${positions.length - countOpen}',
+        'No. of Trades': sumTrades,
+        'No. of Days': sumDays
+      };
 }
