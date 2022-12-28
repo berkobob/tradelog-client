@@ -45,4 +45,24 @@ class Trade extends BaseModel {
   String get fQuantity => largeNum(quantity);
   String get fMultiplier => largeNum(multiplier);
   String get fFx => fx != null ? NumberFormat('#.##').format(fx) : '';
+
+  @override
+  Map<String, String> toMap() => {
+        'Date': fDate,
+        'Buy or Sell': bos,
+        'Symbol': symbol,
+        'Stock': stock,
+        'Expiry': fExpiry,
+        'Strike': fStrike,
+        'Put or Call': poc ?? '',
+        'Price': fPrice,
+        ...super.toMap(),
+        'Asset': asset,
+        'Open or Close': ooc,
+        'Multiplier': '$multiplier',
+        'Notes': notes ?? '',
+        'Trade ID': tradeid ?? '',
+        'Fx': fFx,
+        'Description': description
+      };
 }

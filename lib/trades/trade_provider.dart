@@ -97,4 +97,13 @@ class TradeProvider extends BaseProvider {
 
     notifyListeners();
   }
+
+  Map<String, String> toMap() => {
+        'No. of Trades': '${trades.length}',
+        'Quantity': sumQuantity,
+        'Proceeds': sumProceeds,
+        'Commission': sumCommission,
+        'Cash': sumCash,
+        'Risk': sumRisk,
+      };
 }

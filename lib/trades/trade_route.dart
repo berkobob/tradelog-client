@@ -5,6 +5,7 @@ import 'package:responsive/responsive.dart';
 import '../base_items/status_enum.dart';
 import '../trades/trade_wide.dart';
 import '../widgets/popup_menu.dart';
+import 'trade_narrow.dart';
 import 'trade_provider.dart';
 
 class TradeRoute extends StatelessWidget {
@@ -34,7 +35,12 @@ class TradeRoute extends StatelessWidget {
               return Center(child: Text(state.message ?? 'Error'));
             case Status.ready:
               return sizingInformation.screenSize!.width < 1300
-                  ? const Text('mobile city') // Use PageView
+                  ? PageView(
+                      children: state.trades
+                          .map((trade) => TradeNarrow(trade.toMap()))
+                          .toList()
+                        ..insert(0, TradeNarrow(state.toMap())),
+                    )
                   : const TradeWide();
             default:
               return Center(child: Text(state.message ?? 'Panic!'));

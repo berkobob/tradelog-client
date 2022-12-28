@@ -43,4 +43,14 @@ class BaseModel {
       NumberFormat.simpleCurrency(name: name(currency)).format(x);
 
   String largeNum(num q) => NumberFormat('#,###,###').format(q);
+
+  Map<String, String> toMap() => {
+        'Portfolio': portfolio,
+        'Proceeds': fProceeds,
+        'Commission': fCommission,
+        'Cash': fCash,
+        'Risk': fRisk,
+        'Quantity': format(quantity),
+        'Currency': currency ?? ''
+      };
 }
