@@ -19,7 +19,7 @@ class StocksWide extends StatelessWidget {
           title: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Header('STOCK', align: TextAlign.left, sort: state.sortBy),
+              Header('STOCK', align: TextAlign.center, sort: state.sortBy),
               Header('OPEN', align: TextAlign.center, sort: state.sortBy),
               Header('CLOSED', align: TextAlign.center, sort: state.sortBy),
               Header('PROCEEDS', sort: state.sortBy),
@@ -41,10 +41,7 @@ class StocksWide extends StatelessWidget {
                               title: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Cell(
-                                    stock.stock,
-                                    align: TextAlign.left,
-                                  ),
+                                  Cell(stock.stock, align: TextAlign.center),
                                   Cell('${stock.open.length}',
                                       align: TextAlign.center),
                                   Cell('${stock.closed.length}',
@@ -73,7 +70,7 @@ class StocksWide extends StatelessWidget {
           title: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Cell(state.stocks.length.toString(), align: TextAlign.left),
+              Cell(state.stocks.length.toString(), align: TextAlign.center),
               Cell(state.sumOpen, align: TextAlign.center),
               Cell(state.sumClosed, align: TextAlign.center),
               Cell(state.sumProceeds),

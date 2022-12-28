@@ -18,10 +18,10 @@ class PositionRoute extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: state.status == Status.error
-            ? const Text('Error getting positions')
+            ? const Center(child: Text('Error getting positions'))
             : state.message == null
-                ? const Text('All Positions')
-                : Text('Positions for ${state.message}'),
+                ? const Center(child: Text('All Positions'))
+                : Center(child: Text('Positions for ${state.message}')),
         actions: <Widget>[
           PopupFilter(state: state),
           const MyPopupMenu(),

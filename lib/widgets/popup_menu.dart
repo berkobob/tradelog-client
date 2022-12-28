@@ -39,6 +39,7 @@ class MyPopupMenu extends StatelessWidget {
         icon: const Icon(Icons.menu),
         color: Theme.of(context).primaryColor,
         onSelected: (choice) {
+          choice['provider'].message = null;
           choice['provider'].init();
           Navigator.push(context, choice['route']);
         },

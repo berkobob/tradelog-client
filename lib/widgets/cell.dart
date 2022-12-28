@@ -13,7 +13,7 @@ class Cell extends StatelessWidget {
         flex = 2;
         break;
       case TextAlign.left:
-        flex = 3;
+        flex = 4;
         break;
       case TextAlign.right:
         flex = 3;
