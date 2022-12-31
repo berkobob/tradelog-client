@@ -17,6 +17,7 @@ class Portfolio extends BaseModel {
   String get fDividends => format(dividends);
   String get fProfit => format(profit);
 
+  @override
   Map<String, String> toMap() => {
         ...super.toMap(),
         'Stocks': '${stocks.length}',

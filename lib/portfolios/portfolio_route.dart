@@ -15,7 +15,6 @@ class PortfolioRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<PortfolioProvider>();
-
     return Scaffold(
       appBar: AppBar(
         title: state.status == Status.error
@@ -32,7 +31,6 @@ class PortfolioRoute extends StatelessWidget {
             case Status.error:
               return Center(child: Text(state.message ?? 'Error'));
             case Status.ready:
-              debugPrint('${sizingInformation.screenSize!.width}');
               return sizingInformation.screenSize!.width < 1000
                   ? PageView(
                       children: state.portfolios
