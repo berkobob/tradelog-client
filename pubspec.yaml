@@ -10,12 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.5
-  intl: ^0.18.0
+  intl: ^0.17.0
   provider: ^6.0.4
   responsive:
     git:
       url: https://www.github.com/berkobob/responsive
   shared_preferences: ^2.0.15
+  syncfusion_flutter_charts: ^20.4.41
 
 dev_dependencies:
   flutter_lints: ^2.0.0

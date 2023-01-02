@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../portfolios/portfolio_provider.dart';
+import '../reports/report_provider.dart';
 import '../stocks/stock_provider.dart';
 import '../positions/positions_provider.dart';
 import '../trades/trade_provider.dart';
@@ -33,6 +34,16 @@ class MyPopupMenu extends StatelessWidget {
         'route': tradeRoute(),
         'provider': context.read<TradeProvider>(),
       },
+      {
+        'name': 'Divider',
+        'route': null,
+        'provider': null,
+      },
+      {
+        'name': 'Reports',
+        'route': reportRoute(),
+        'provider': context.read<ReportProvider>(),
+      },
     ];
 
     return PopupMenuButton(
@@ -44,11 +55,13 @@ class MyPopupMenu extends StatelessWidget {
           Navigator.push(context, choice['route']);
         },
         itemBuilder: (context) => items
-            .map<PopupMenuItem>((item) => PopupMenuItem(
-                  value: item,
-                  child: Text(item['name'] as String,
-                      style: const TextStyle(color: Colors.white)),
-                ))
+            .map<PopupMenuEntry>((item) => item['name'] != 'Divider'
+                ? PopupMenuItem(
+                    value: item,
+                    child: Text(item['name'] as String,
+                        style: const TextStyle(color: Colors.white)),
+                  ) as PopupMenuEntry
+                : const PopupMenuDivider())
             .toList());
   }
 }

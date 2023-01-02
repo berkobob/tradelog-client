@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../portfolios/portfolio_route.dart';
 import '../positions/position_route.dart';
+import '../reports/report_route.dart';
 import '../stocks/stock_route.dart';
 import '../trades/trade_route.dart';
 
@@ -16,3 +17,6 @@ MaterialPageRoute positionRoute() =>
 
 MaterialPageRoute tradeRoute() =>
     MaterialPageRoute(builder: (context) => const TradeRoute());
+
+MaterialPageRoute reportRoute() =>
+    MaterialPageRoute(builder: (context) => const ReportRoute());

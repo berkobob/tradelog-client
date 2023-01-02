@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'portfolios/portfolio_provider.dart';
 import 'portfolios/portfolio_route.dart';
 import 'positions/positions_provider.dart';
+import 'reports/report_provider.dart';
 import 'stocks/stock_provider.dart';
 import 'trades/trade_provider.dart';
 import 'settings.dart';
@@ -25,6 +26,8 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<PortfolioProvider>(
             create: (BuildContext context) => PortfolioProvider()..init()),
+        ChangeNotifierProvider<ReportProvider>(
+            create: (BuildContext context) => ReportProvider()),
         ChangeNotifierProvider(
             create: (BuildContext context) => StockProvider()),
         ChangeNotifierProvider(
