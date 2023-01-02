@@ -72,6 +72,7 @@ class Positions extends StatelessWidget {
                                 ],
                               ),
                               onTap: () {
+                                if (position.asset == 'DIV') return;
                                 final trade = context.read<TradeProvider>();
                                 trade.init('symbol=${position.symbol}');
                                 trade.message = position.symbol;

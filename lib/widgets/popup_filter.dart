@@ -26,11 +26,15 @@ class PopupFilter extends StatelessWidget {
           case 'options':
             state.hideOptions = !state.hideOptions;
             break;
+          case 'divis':
+            state.hideDividends = !state.hideDividends;
+            break;
           case 'reset':
             state.hideClosed = false;
             state.hideOpen = false;
             state.hideStocks = false;
             state.hideOptions = false;
+            state.hideDividends = false;
         }
         state.status = Status.ready;
       },
@@ -87,6 +91,20 @@ class PopupFilter extends StatelessWidget {
             ],
           ),
         ),
+        PopupMenuItem(
+          value: 'divis',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Hide dividend payments',
+                  style: TextStyle(color: Colors.white)),
+              state.hideDividends
+                  ? const Icon(Icons.check_box)
+                  : const Icon(Icons.check_box_outline_blank),
+            ],
+          ),
+        ),
+        const PopupMenuDivider(),
         const PopupMenuItem(
           value: 'reset',
           child: Text('Reset all', style: TextStyle(color: Colors.white)),

@@ -23,6 +23,18 @@ class Position extends BaseModel {
         asset = json['asset'],
         super(json);
 
+  Position.fromDividend(Json json)
+      : stock = '',
+        symbol = json['symbol'],
+        description =
+            json['description'].substring(json['description'].indexOf(')') + 2),
+        open = DateTime.parse(json['date']),
+        closed = DateTime.parse(json['date']),
+        trades = [],
+        days = 0,
+        asset = 'DIV',
+        super(json);
+
   String get fOpen => DateFormat('dd/MM/yy').format(open);
   String get fClosed =>
       closed != null ? DateFormat('dd/MM/yy').format(closed!) : '';

@@ -6,7 +6,6 @@ import '../base_items/status_enum.dart';
 import 'position.dart';
 
 class PositionProvider extends BaseProvider {
-  // List<Position> positions = [];
   List<Position> allPositions = [];
   String? message;
   String sort = '';
@@ -14,12 +13,14 @@ class PositionProvider extends BaseProvider {
   bool hideOpen = false;
   bool hideStocks = false;
   bool hideOptions = false;
+  bool hideDividends = false;
 
   List<Position> get positions => allPositions.where((position) {
         if (hideClosed && position.quantity == 0) return false;
         if (hideOpen && position.quantity != 0) return false;
         if (hideStocks && position.asset == 'STK') return false;
         if (hideOptions && position.asset == 'OPT') return false;
+        if (hideDividends && position.asset == 'DIV') return false;
         return true;
       }).toList();
 
@@ -29,6 +30,10 @@ class PositionProvider extends BaseProvider {
     try {
       allPositions =
           (await get('positions', query)).map((s) => Position(s)).toList();
+      query = query?.replaceFirst('stock', 'symbol');
+      allPositions.addAll((await get('dividends', query))
+          .map((d) => Position.fromDividend(d))
+          .toList());
       status = Status.ready;
     } catch (e) {
       message = e.toString();
@@ -38,24 +43,27 @@ class PositionProvider extends BaseProvider {
 
   String get symbol => positions.isEmpty ? '' : name(positions[0].currency);
 
-  String get sumQuantity => positions
-      .fold<num>(0, (value, item) => value += item.quantity)
-      .toString();
+  String get sumQuantity => NumberFormat('#,###,###')
+      .format(positions.fold<num>(0, (value, item) => value += item.quantity));
 
   int get countOpen => positions.fold<int>(
       0, (value, item) => item.closed == null ? ++value : value);
 
-  String get sumProceeds => NumberFormat.simpleCurrency(name: symbol)
-      .format(positions.fold(0.0, (value, item) => value += item.proceeds));
+  String get sumProceeds =>
+      NumberFormat.simpleCurrency(name: symbol, decimalDigits: 0)
+          .format(positions.fold(0.0, (value, item) => value += item.proceeds));
 
-  String get sumCommission => NumberFormat.simpleCurrency(name: symbol)
-      .format(positions.fold(0.0, (value, item) => value += item.commission));
+  String get sumCommission =>
+      NumberFormat.simpleCurrency(name: symbol, decimalDigits: 0).format(
+          positions.fold(0.0, (value, item) => value += item.commission));
 
-  String get sumCash => NumberFormat.simpleCurrency(name: symbol)
-      .format(positions.fold(0.0, (value, item) => value += item.cash));
+  String get sumCash =>
+      NumberFormat.simpleCurrency(name: symbol, decimalDigits: 0)
+          .format(positions.fold(0.0, (value, item) => value += item.cash));
 
-  String get sumRisk => NumberFormat.simpleCurrency(name: symbol)
-      .format(positions.fold(0.0, (value, item) => value += item.risk));
+  String get sumRisk =>
+      NumberFormat.simpleCurrency(name: symbol, decimalDigits: 0)
+          .format(positions.fold(0.0, (value, item) => value += item.risk));
 
   String get sumTrades =>
       '${positions.fold(0, (value, item) => value += item.trades.length)}';
