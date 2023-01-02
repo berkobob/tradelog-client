@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
+import '../base_items/base_route.dart';
 import '../base_items/status_enum.dart';
+import '../positions/positions_provider.dart';
 import '../widgets/mobile_view.dart';
 import '../widgets/popup_menu.dart';
 import 'stock_provider.dart';
@@ -38,7 +40,15 @@ class StockRoute extends StatelessWidget {
               return sizingInformation.screenSize!.width < 1000
                   ? PageView(
                       children: state.stocks
-                          .map((stock) => MobileView(stock.toMap()))
+                          .map<Widget>((stock) => GestureDetector(
+                              child: MobileView(stock.toMap()),
+                              onTap: () {
+                                final position =
+                                    context.read<PositionProvider>();
+                                position.init('stock=${stock.stock}');
+                                position.message = stock.stock;
+                                Navigator.push(context, positionRoute());
+                              }))
                           .toList()
                         ..insert(0, MobileView(state.toMap())),
                     )

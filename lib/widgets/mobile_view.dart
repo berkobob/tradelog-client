@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class MobileView extends StatelessWidget {
-  const MobileView(this.trade, {super.key});
-  final Map<String, String> trade;
+  const MobileView(this.item, {super.key});
+  final Map<String, String> item;
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width / 3;
     final List<Widget> rows = [];
 
-    trade.forEach((key, value) => rows.add(
+    item.forEach((key, value) => rows.add(
           Padding(
             padding: const EdgeInsets.all(7.0),
             child: Row(children: [

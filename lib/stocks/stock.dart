@@ -7,6 +7,8 @@ class Stock extends BaseModel {
   final num profit;
   final num dividends;
 
+  num get total => profit + dividends;
+
   Stock(Json json)
       : stock = json['stock'],
         open = json['open'],
@@ -17,6 +19,7 @@ class Stock extends BaseModel {
 
   String get fDividends => format(dividends);
   String get fProfit => format(profit);
+  String get fTotal => format(total);
 
   @override
   Map<String, String> toMap() => {
@@ -25,6 +28,7 @@ class Stock extends BaseModel {
         'Open': '${open.length}',
         'Closed': '${closed.length}',
         'Profit': fProfit,
-        'Dividends': fDividends
+        'Dividends': fDividends,
+        'Total': fTotal,
       };
 }

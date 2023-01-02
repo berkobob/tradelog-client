@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
+import '../base_items/base_route.dart';
 import '../base_items/status_enum.dart';
+import '../trades/trade_provider.dart';
 import '../widgets/mobile_view.dart';
 import '../widgets/popup_filter.dart';
 import '../widgets/popup_menu.dart';
@@ -39,7 +41,14 @@ class PositionRoute extends StatelessWidget {
               return sizingInformation.screenSize!.width < 1000 //1625
                   ? PageView(
                       children: state.positions
-                          .map((position) => MobileView(position.toMap()))
+                          .map<Widget>((position) => GestureDetector(
+                              child: MobileView(position.toMap()),
+                              onTap: () {
+                                final trade = context.read<TradeProvider>();
+                                trade.init('symbol=${position.symbol}');
+                                trade.message = position.symbol;
+                                Navigator.push(context, tradeRoute());
+                              }))
                           .toList()
                         ..insert(0, MobileView(state.toMap())))
                   : const Positions();

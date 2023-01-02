@@ -46,7 +46,12 @@ class PortfolioProvider extends BaseProvider {
       .fold<num>(0, (value, item) => value += item.quantity)
       .toString();
 
+  String get sumTotal => NumberFormat.simpleCurrency(name: symbol)
+      .format(portfolios.fold(0.0, (value, item) => value += item.total));
+
   Map<String, String> toMap() => {
+        'SUMMARY': 'PAGE',
+        '-----------': '-----',
         'Stocks': sumQuantity,
         'Proceeds': sumProceeds,
         'Commission': sumCommission,
@@ -54,6 +59,7 @@ class PortfolioProvider extends BaseProvider {
         'Risk': sumRisk,
         'Profit': sumProfit,
         'Dividends': sumDividends,
+        'Total': sumTotal,
       };
 
   void sortBy(String by) {

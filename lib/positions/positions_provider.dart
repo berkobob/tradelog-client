@@ -115,6 +115,8 @@ class PositionProvider extends BaseProvider {
   }
 
   Map<String, String> toMap() => {
+        'SUMMARY': 'PAGE',
+        '-----------': '-----',
         'No. Positions': '${positions.length}',
         'Quantity': sumQuantity,
         'Proceeds': sumProceeds,

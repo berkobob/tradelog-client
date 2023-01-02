@@ -27,6 +27,7 @@ class Portfolios extends StatelessWidget {
               Header('RISK', sort: state.sortBy),
               Header('PROFIT', sort: state.sortBy),
               Header('DIVIDENDS', sort: state.sortBy),
+              Header('TOTAL', sort: state.sortBy)
             ],
           ),
         ),
@@ -47,6 +48,7 @@ class Portfolios extends StatelessWidget {
                                   Cell(port.fRisk),
                                   Cell(port.fProfit),
                                   Cell(port.fDividends),
+                                  Cell(port.fTotal)
                                 ],
                               ),
                               onTap: () {
@@ -70,6 +72,7 @@ class Portfolios extends StatelessWidget {
               Cell(state.sumRisk),
               Cell(state.sumProfit),
               Cell(state.sumDividends),
+              Cell(state.sumTotal),
             ],
           ),
         )

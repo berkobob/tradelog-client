@@ -51,6 +51,9 @@ class StockProvider extends BaseProvider {
   String get sumQuantity =>
       stocks.fold<num>(0, (value, item) => value += item.quantity).toString();
 
+  String get sumTotal => NumberFormat.simpleCurrency(name: symbol)
+      .format(stocks.fold(0.0, (value, item) => value + item.total));
+
   void sortBy(String by) {
     switch (by) {
       case "STOCK":
@@ -96,6 +99,8 @@ class StockProvider extends BaseProvider {
   }
 
   Map<String, String> toMap() => {
+        'SUMMARY': 'PAGE',
+        '-----------': '-----',
         'Stocks': '${stocks.length}',
         'Open positions': sumOpen,
         'Closed positions': sumClosed,

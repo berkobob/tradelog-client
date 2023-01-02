@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive/responsive.dart';
 
+import '../base_items/base_route.dart';
 import '../base_items/status_enum.dart';
+import '../stocks/stock_provider.dart';
 import '../widgets/mobile_view.dart';
 import '../widgets/popup_menu.dart';
 import '../widgets/settings_dialog.dart';
@@ -34,7 +36,14 @@ class PortfolioRoute extends StatelessWidget {
               return sizingInformation.screenSize!.width < 1000
                   ? PageView(
                       children: state.portfolios
-                          .map((portfolio) => MobileView(portfolio.toMap()))
+                          .map<Widget>((portfolio) => GestureDetector(
+                              child: MobileView(portfolio.toMap()),
+                              onTap: () {
+                                final stock = context.read<StockProvider>();
+                                stock.init('portfolio=${portfolio.portfolio}');
+                                stock.message = portfolio.portfolio;
+                                Navigator.push(context, stockRoute());
+                              }))
                           .toList()
                         ..insert(0, MobileView(state.toMap())),
                     )
