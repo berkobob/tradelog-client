@@ -22,16 +22,28 @@ class Reports extends StatelessWidget {
       primaryYAxis: NumericAxis(numberFormat: NumberFormat.compact()),
       series: <ChartSeries>[
         StackedColumnSeries<Report, int>(
+          name: 'Profits',
           dataSource: data,
           xValueMapper: (Report data, _) => data.year,
           yValueMapper: (Report data, _) => data.profits,
+          isVisibleInLegend: true,
+          dataLabelSettings: myDataLabelSettings(),
         ),
         StackedColumnSeries<Report, int>(
+          name: 'Dividend',
           dataSource: data,
           xValueMapper: (Report data, _) => data.year,
           yValueMapper: (Report data, _) => data.dividend,
+          dataLabelSettings: myDataLabelSettings(),
         ),
       ],
     );
+  }
+
+  DataLabelSettings myDataLabelSettings() {
+    return const DataLabelSettings(
+        textStyle: TextStyle(color: Colors.white),
+        isVisible: true,
+        labelAlignment: ChartDataLabelAlignment.middle);
   }
 }
