@@ -8,9 +8,11 @@ import 'report.dart';
 class ReportProvider extends BaseProvider {
   List<Position> positions = [];
   List<Position> dividends = [];
-  String? message;
+  String? message = 'All Years';
   List<Report> data = [];
   List<int> years = [];
+  int? year;
+  bool monthlyData = false;
 
   @override
   Future<void> init() async {
@@ -25,16 +27,13 @@ class ReportProvider extends BaseProvider {
       dividends = (await get('dividends'))
           .map((p) => Position.fromDividend(p))
           .toList();
-
       status = Status.ready;
     } catch (e) {
       message = '$e';
       status = Status.error;
     }
 
-    years = Set.of(positions.map<int>((p) => p.closed?.year ?? 0))
-        // ..addAll(Set.of(dividends.map((d) => d.closed?.year ?? 0)))
-        .toList()
+    years = Set.of(positions.map<int>((p) => p.closed?.year ?? 0)).toList()
       ..sort();
 
     data = [];
@@ -49,12 +48,18 @@ class ReportProvider extends BaseProvider {
     }
   }
 
-  void monthly(int col) {
+  bool monthly(int col) {
     status = Status.busy;
+    if (monthlyData) {
+      monthlyData = false;
+      return true;
+    }
+    monthlyData = true;
     data = [];
-    final year = years[col];
+    year = years[col];
+    message = '$year';
 
-    for (int month = 0; month < 12; month++) {
+    for (int month = 1; month < 13; month++) {
       final profits = positions.fold(
           0.0,
           (value, p) => p.closed?.year == year && p.closed?.month == month
@@ -69,6 +74,9 @@ class ReportProvider extends BaseProvider {
       final monthName = DateFormat('MMM').format(DateTime(0, month + 1));
       data.add(Report(column: monthName, profits: profits, dividend: dividend));
     }
+    print(message);
+    data.forEach(print);
     status = Status.ready;
+    return false;
   }
 }

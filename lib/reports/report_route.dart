@@ -15,7 +15,7 @@ class ReportRoute extends StatelessWidget {
     final state = context.watch<ReportProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reports'),
+        title: Text('${state.message}'),
         actions: const [MyPopupMenu()],
       ),
       body: ResponsiveBuilder(

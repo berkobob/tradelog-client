@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tradelog/reports/report_provider.dart';
 
+import '../base_items/base_route.dart';
+import '../positions/positions_provider.dart';
 import 'report.dart';
 
 class Reports extends StatelessWidget {
@@ -21,8 +23,16 @@ class Reports extends StatelessWidget {
       series: <ChartSeries>[
         StackedColumnSeries<Report, String>(
           name: 'Profits',
-          onPointTap: (pointInteractionDetails) =>
-              state.monthly(pointInteractionDetails.pointIndex ?? 0),
+          onPointTap: (pointInteractionDetails) {
+            int col = pointInteractionDetails.pointIndex!;
+            if (state.monthly(col++)) {
+              final positions = context.read<PositionProvider>();
+              positions.init('closed=${state.year}&month=$col');
+              positions.message =
+                  '${DateFormat('MMMM').format(DateTime(0, col))} ${state.year}';
+              Navigator.push(context, positionRoute());
+            }
+          },
           dataSource: data,
           xValueMapper: (Report data, _) => data.column,
           yValueMapper: (Report data, _) => data.profits,
@@ -34,8 +44,16 @@ class Reports extends StatelessWidget {
         ),
         StackedColumnSeries<Report, String>(
           name: 'Dividend',
-          onPointTap: (pointInteractionDetails) =>
-              state.monthly(pointInteractionDetails.pointIndex ?? 0),
+          onPointTap: (pointInteractionDetails) {
+            int col = pointInteractionDetails.pointIndex!;
+            if (state.monthly(col++)) {
+              final positions = context.read<PositionProvider>();
+              positions.init('closed=${state.year}&month=$col');
+              positions.message =
+                  '${DateFormat('MMMM').format(DateTime(0, col))} ${state.year}';
+              Navigator.push(context, positionRoute());
+            }
+          },
           dataSource: data,
           xValueMapper: (Report data, _) => data.column,
           yValueMapper: (Report data, _) => data.dividend,
