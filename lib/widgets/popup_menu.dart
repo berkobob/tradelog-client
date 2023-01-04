@@ -16,22 +16,22 @@ class MyPopupMenu extends StatelessWidget {
     final items = [
       {
         'name': 'Portfolios',
-        'route': portfolioRoute(),
+        'route': portfolioRoute,
         'provider': context.read<PortfolioProvider>(),
       },
       {
         'name': 'Stocks',
-        'route': stockRoute(),
+        'route': stockRoute,
         'provider': context.read<StockProvider>(),
       },
       {
         'name': 'Positions',
-        'route': positionRoute(),
+        'route': positionRoute,
         'provider': context.read<PositionProvider>(),
       },
       {
         'name': 'Trades',
-        'route': tradeRoute(),
+        'route': tradeRoute,
         'provider': context.read<TradeProvider>(),
       },
       {
@@ -41,7 +41,7 @@ class MyPopupMenu extends StatelessWidget {
       },
       {
         'name': 'Reports',
-        'route': reportRoute(),
+        'route': reportRoute,
         'provider': context.read<ReportProvider>(),
       },
     ];
@@ -51,7 +51,7 @@ class MyPopupMenu extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         onSelected: (choice) {
           choice['provider'].init();
-          Navigator.push(context, choice['route']);
+          Navigator.push(context, choice['route']());
         },
         itemBuilder: (context) => items
             .map<PopupMenuEntry>((item) => item['name'] != 'Divider'

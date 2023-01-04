@@ -6,7 +6,8 @@ import '../positions/position.dart';
 import 'report.dart';
 
 class ReportProvider extends BaseProvider {
-  List<Position> positions = [];
+  List<Position> stocks = [];
+  List<Position> options = [];
   List<Position> dividends = [];
   String? message = 'All Years';
   List<Report> data = [];
@@ -17,11 +18,12 @@ class ReportProvider extends BaseProvider {
   @override
   Future<void> init() async {
     status = Status.busy;
+    List<Position> positions = [];
     try {
       // Gets all closed positions
       positions = (await get('positions'))
           .map((p) => Position(p))
-          .where((p) => p.quantity == 0 ? true : false)
+          .where((p) => p.quantity == 0)
           .toList();
       // Gets all dividends
       dividends = (await get('dividends'))
@@ -36,31 +38,43 @@ class ReportProvider extends BaseProvider {
     years = Set.of(positions.map<int>((p) => p.closed?.year ?? 0)).toList()
       ..sort();
 
+    stocks = positions.where((p) => p.asset == 'STK').toList();
+    options = positions.where((p) => p.asset == 'OPT').toList();
+
+    year = null;
     data = [];
+
     for (int year in years) {
-      final profit = positions.fold(0.0,
+      final stock = stocks.fold(0.0,
+          (value, p) => p.closed?.year == year ? value += p.proceeds : value);
+      final option = options.fold(0.0,
           (value, p) => p.closed?.year == year ? value += p.proceeds : value);
       final dividend = dividends.fold(0.0,
           (value, d) => d.closed?.year == year ? value += d.proceeds : value);
-      final report =
-          Report(column: '$year', profits: profit, dividend: dividend);
+      final report = Report(
+          column: '$year', stocks: stock, options: option, dividend: dividend);
       data.add(report);
     }
   }
 
   bool monthly(int col) {
-    status = Status.busy;
     if (monthlyData) {
       monthlyData = false;
       return true;
     }
+    status = Status.busy;
     monthlyData = true;
     data = [];
-    year = years[col];
+    year ??= years[col];
     message = '$year';
 
     for (int month = 1; month < 13; month++) {
-      final profits = positions.fold(
+      final stock = stocks.fold(
+          0.0,
+          (value, p) => p.closed?.year == year && p.closed?.month == month
+              ? value += p.proceeds
+              : value);
+      final option = options.fold(
           0.0,
           (value, p) => p.closed?.year == year && p.closed?.month == month
               ? value += p.proceeds
@@ -71,11 +85,12 @@ class ReportProvider extends BaseProvider {
               ? value += d.proceeds
               : value);
 
-      final monthName = DateFormat('MMM').format(DateTime(0, month + 1));
-      data.add(Report(column: monthName, profits: profits, dividend: dividend));
+      data.add(Report(
+          column: DateFormat('MMM').format(DateTime(0, month)),
+          stocks: stock,
+          options: option,
+          dividend: dividend));
     }
-    print(message);
-    data.forEach(print);
     status = Status.ready;
     return false;
   }

@@ -1,11 +1,16 @@
 class Report {
   String column;
-  double profits;
   double dividend;
+  double options;
+  double stocks;
 
-  Report({required this.column, this.profits = 0.0, this.dividend = 0.0});
+  Report(
+      {required this.column,
+      this.options = 0.0,
+      this.stocks = 1234.0,
+      this.dividend = 0.0});
 
   @override
   String toString() =>
-      'column: $column, Profits: $profits, Dividends: $dividend';
+      'column: $column, Options: $options, Stocks: $stocks, Dividends: $dividend';
 }
