@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:tradelog/base_items/base_provider.dart';
 
 import '../base_items/status_enum.dart';
@@ -9,6 +10,7 @@ class ReportProvider extends BaseProvider {
   List<Position> dividends = [];
   String? message;
   List<Report> data = [];
+  List<int> years = [];
 
   @override
   Future<void> init() async {
@@ -30,34 +32,43 @@ class ReportProvider extends BaseProvider {
       status = Status.error;
     }
 
-    final years = Set.of(positions.map<int>((p) => p.closed?.year ?? 0))
-      // ..addAll(Set.of(dividends.map((d) => d.closed?.year ?? 0)))
-      ..toList().sort();
+    years = Set.of(positions.map<int>((p) => p.closed?.year ?? 0))
+        // ..addAll(Set.of(dividends.map((d) => d.closed?.year ?? 0)))
+        .toList()
+      ..sort();
 
+    data = [];
     for (int year in years) {
       final profit = positions.fold(0.0,
           (value, p) => p.closed?.year == year ? value += p.proceeds : value);
       final dividend = dividends.fold(0.0,
           (value, d) => d.closed?.year == year ? value += d.proceeds : value);
-      final report = Report(year: year, profits: profit, dividend: dividend);
+      final report =
+          Report(column: '$year', profits: profit, dividend: dividend);
       data.add(report);
     }
   }
 
-  List data1() => Set.of(positions.map((p) => p.closed?.year ?? 0))
-      .map((year) => {
-            year: {
-              'Profit': positions.fold(
-                  0.0,
-                  (value, p) =>
-                      p.closed?.year == year ? value += p.proceeds : value)
-            },
-            year: {
-              'Proceeds': positions.fold(
-                  0.0,
-                  (value, p) =>
-                      p.closed?.year == year ? value += p.proceeds : value)
-            },
-          })
-      .toList();
+  void monthly(int col) {
+    status = Status.busy;
+    data = [];
+    final year = years[col];
+
+    for (int month = 0; month < 12; month++) {
+      final profits = positions.fold(
+          0.0,
+          (value, p) => p.closed?.year == year && p.closed?.month == month
+              ? value += p.proceeds
+              : value);
+      final dividend = dividends.fold(
+          0.0,
+          (value, d) => d.closed?.year == year && d.closed?.month == month
+              ? value += d.proceeds
+              : value);
+
+      final monthName = DateFormat('MMM').format(DateTime(0, month + 1));
+      data.add(Report(column: monthName, profits: profits, dividend: dividend));
+    }
+    status = Status.ready;
+  }
 }

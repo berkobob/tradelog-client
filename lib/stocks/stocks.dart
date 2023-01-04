@@ -33,39 +33,40 @@ class Stocks extends StatelessWidget {
           ),
         ),
         Expanded(
-            child: state.stocks.isEmpty
-                ? const Center(child: Text('No stocks found'))
-                : ListView(
-                    children: state.stocks
-                        .map((stock) => ListTile(
-                              title: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Cell(stock.stock, align: TextAlign.center),
-                                  Cell('${stock.open.length}',
-                                      align: TextAlign.center),
-                                  Cell('${stock.closed.length}',
-                                      align: TextAlign.center),
-                                  Cell(stock.fProceeds),
-                                  Cell(stock.fCommission),
-                                  Cell(stock.fCash),
-                                  Cell(stock.fRisk),
-                                  Cell('${stock.quantity}',
-                                      align: TextAlign.center),
-                                  Cell(stock.fProfit),
-                                  Cell(stock.fDividends),
-                                ],
-                              ),
-                              onTap: () {
-                                final position =
-                                    context.read<PositionProvider>();
-                                position.init('stock=${stock.stock}');
-                                position.message = stock.stock;
-                                Navigator.push(context, positionRoute());
-                              },
-                            ))
-                        .toList(),
-                  )),
+          child: state.stocks.isEmpty
+              ? const Center(child: Text('No stocks found'))
+              : ListView(
+                  children: state.stocks
+                      .map((stock) => ListTile(
+                            title: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Cell(stock.stock, align: TextAlign.center),
+                                Cell('${stock.open.length}',
+                                    align: TextAlign.center),
+                                Cell('${stock.closed.length}',
+                                    align: TextAlign.center),
+                                Cell(stock.fProceeds),
+                                Cell(stock.fCommission),
+                                Cell(stock.fCash),
+                                Cell(stock.fRisk),
+                                Cell('${stock.quantity}',
+                                    align: TextAlign.center),
+                                Cell(stock.fProfit),
+                                Cell(stock.fDividends),
+                              ],
+                            ),
+                            onTap: () {
+                              final positions =
+                                  context.read<PositionProvider>();
+                              positions.init('stock=${stock.stock}');
+                              positions.message = stock.stock;
+                              Navigator.push(context, positionRoute());
+                            },
+                          ))
+                      .toList(),
+                ),
+        ),
         ListTile(
           title: Row(
             mainAxisSize: MainAxisSize.max,
