@@ -3,9 +3,9 @@ String name(String? currency) {
     case 'GBP':
       return '£';
     case 'USD':
+    case '':
       return '\$';
     case null:
-      return '';
     default:
       return '€';
   }
